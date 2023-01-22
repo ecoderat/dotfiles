@@ -13,7 +13,28 @@ export CLICOLOR_FORCE=1
 unsetopt nomatch
 
 # Nicer prompt.
-export PS1=$'\n'"%F{green} %*%F %3~ %F{white}"$'\n'"$ "
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+# Find and set branch name var if in git repository.
+function git_branch_name()
+{
+  branch=$(parse_git_branch)
+  if [[ $branch == "" ]];
+  then
+    :
+  else
+    echo 'git:'$branch''
+  fi
+}
+
+setopt PROMPT_SUBST
+autoload -U colors && colors
+export PROMPT=$'\n''%F{green} %*%F %3~ %F{red}$(git_branch_name)%F{white}'$'\n''$ '
+
+# Enable Scroll on git diff
+export LESS=-FR
 
 # Enable plugins.
 plugins=(git brew history kubectl history-substring-search)
