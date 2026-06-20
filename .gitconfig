@@ -11,7 +11,7 @@
   interactive = auto
   status = auto
 [init]
-  defaultBranch = master
+  defaultBranch = main
 [web]
   browser = google-chrome
 [credential]
@@ -30,6 +30,6 @@
   co = checkout
   br = branch
   amend = commit --amend -C HEAD
-  lg = log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
+  lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %x1b[38;2;0;80;255m<%an>%Creset' --abbrev-commit"
 [pull]
   rebase = true
